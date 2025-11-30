@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Vesting dApp – Next.js + Mesh SDK
 
-## Getting Started
+This Next.js (App Router) project demonstrates how to interact with the Aiken
+vesting contract that lives in `../vesting-sc`. It reuses the same logic that
+the console scripts inside `temp/vesting-Dapp` expose, but wraps everything into
+a full-stack dashboard:
 
-First, run the development server:
+- Lock ADA with the owner wallet to the script, choosing the cliff duration.
+- Display live script state, aggregated balances, and all inline datums.
+- Unlock funds with the beneficiary wallet once the datum time has elapsed.
+- Back-end API routes execute Mesh SDK transactions and submit them to Blockfrost.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+![screenshot](./public/window.svg)
+
+### Prerequisites
+
+1. [Aiken](https://aiken-lang.org/) installed locally.
+2. Cardano wallets for the owner and beneficiary (the repo already contains
+   sample `.sk` files under `temp/vesting-Dapp/`).
+3. A Blockfrost API key with access to the network you intend to use.
+4. Node 18+ and `pnpm` (preferred package manager for this repo).
+
+### Build the contract blueprint
+
+```
+cd ../vesting-sc
+aiken build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This produces `plutus.json`, which the Next.js app loads to derive the script
+address. Rebuild whenever you change the validator.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Environment variables
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Create `vesting-dapp/.env.local` (you can copy `env.example`) with:
 
-## Learn More
+```
+BLOCKFROST_API_KEY=previewXXXXXXXXXXXX
+CARDANO_NETWORK=preview # preview | preprod | mainnet
+OWNER_ROOT_KEY=your_owner_bech32_root_key
+BENEFICIARY_ROOT_KEY=your_beneficiary_bech32_root_key
+BLUEPRINT_PATH=../vesting-sc/plutus.json
+```
 
-To learn more about Next.js, take a look at the following resources:
+> 💡 Tip: copy the contents of `owner.sk` / `beneficiary.sk` and paste them
+> directly into `.env.local`. Multi-line values with literal `\n` sequences are
+> also supported (they will be converted to real newlines at runtime).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Install & run
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+cd vesting-dapp
+pnpm install
+pnpm dev
+```
 
-## Deploy on Vercel
+Navigate to http://localhost:3000 and you will see:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Overview cards** – network, balances, next unlock.
+2. **Deposit form** – locks funds with the owner wallet via `/api/vesting/deposit`.
+3. **Unlock form** – selects a script UTxO and spends it with the beneficiary via `/api/vesting/unlock`.
+4. **Live table** – lists every inline datum and whether it is already claimable.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+All state-changing actions hit API routes that execute server-side using Mesh
+SDK (`@meshsdk/core`, `@meshsdk/common`, `@meshsdk/core-csl`). They deserialize
+the datum, build transactions, sign them with the wallets derived from the
+provided root keys, and submit them with the Blockfrost provider.
+
+### Helpful tips
+
+- Fund the owner wallet before trying to deposit. Fund the beneficiary wallet
+  and set a collateral UTxO (5 ADA) before trying to unlock.
+- The unlock form automatically lists UTxOs at the script address, but you can
+  paste any tx hash/index pair manually if needed.
+- If you make changes to the contract parameters in Aiken, rebuild the blueprint
+  and restart the dev server so the script CBOR is refreshed.
+
+### API reference
+
+- `GET /api/vesting/state` – returns `ContractState`, including parsed datums.
+- `POST /api/vesting/deposit` – `{ amountAda, lockDurationMinutes }`.
+- `POST /api/vesting/unlock` – `{ txHash, outputIndex? }`.
+
+Each route returns an error payload with a human-readable `message` when
+something fails (missing UTxOs, collateral, invalid datum, etc.).
