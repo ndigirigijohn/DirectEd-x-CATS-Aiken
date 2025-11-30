@@ -64,6 +64,8 @@ export async function getContractState(): Promise<ContractState> {
   const ownerWallet = getOwnerWallet();
   const beneficiaryWallet = getBeneficiaryWallet();
   const scriptAddress = getScriptAddress();
+  const ownerAddress = await ownerWallet.getChangeAddress();
+  const beneficiaryAddress = await beneficiaryWallet.getChangeAddress();
 
   const utxosRaw = await fetchAddressUtxos(scriptAddress);
   const utxos: VestingUtxo[] = utxosRaw.map(enrichUtxo);
@@ -82,8 +84,8 @@ export async function getContractState(): Promise<ContractState> {
 
   return {
     scriptAddress,
-    ownerAddress: ownerWallet.addresses.baseAddressBech32,
-    beneficiaryAddress: beneficiaryWallet.addresses.baseAddressBech32,
+    ownerAddress,
+    beneficiaryAddress,
     network: env.networkName,
     blueprintHash: blueprint.validators?.[0]?.hash ?? "unknown",
     scriptBalance: scriptBalance.toString(),
@@ -108,7 +110,8 @@ export async function depositFunds(request: DepositRequest) {
   const beneficiaryWallet = getBeneficiaryWallet();
   const scriptAddress = getScriptAddress();
 
-  const ownerAddress = ownerWallet.addresses.baseAddressBech32;
+  const ownerAddress = await ownerWallet.getChangeAddress();
+  const beneficiaryAddress = await beneficiaryWallet.getChangeAddress();
   const ownerUtxos = await fetchAddressUtxos(ownerAddress);
 
   if (!ownerUtxos.length) {
@@ -123,9 +126,8 @@ export async function depositFunds(request: DepositRequest) {
   const lockUntil = Date.now() + request.lockDurationMinutes * 60_000;
 
   const { pubKeyHash: ownerPkh } = deserializeAddress(ownerAddress);
-  const { pubKeyHash: beneficiaryPkh } = deserializeAddress(
-    beneficiaryWallet.addresses.baseAddressBech32,
-  );
+  const { pubKeyHash: beneficiaryPkh } =
+    deserializeAddress(beneficiaryAddress);
 
   const txBuilder = getTxBuilder();
   await txBuilder
@@ -181,7 +183,7 @@ export async function unlockFunds(request: UnlockRequest) {
   const target = await findScriptUtxo(request.txHash, request.outputIndex);
 
   const beneficiaryWallet = getBeneficiaryWallet();
-  const beneficiaryAddress = beneficiaryWallet.addresses.baseAddressBech32;
+  const beneficiaryAddress = await beneficiaryWallet.getChangeAddress();
   const beneficiaryUtxos = await fetchAddressUtxos(beneficiaryAddress);
 
   if (!beneficiaryUtxos.length) {
