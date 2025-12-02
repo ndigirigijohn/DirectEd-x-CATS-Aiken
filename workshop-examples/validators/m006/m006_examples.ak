@@ -755,8 +755,10 @@ pub type CollectionAction {
 
 // Helper function for token name generation
 fn make_token_name(collection_name: ByteArray, count: Int) -> ByteArray {
+  // Convert the on-chain counter to bytes so it can be appended to the name.
   let count_bytes = string.from_int(count) |> string.to_bytearray
 
+  // Final shape: "<collection_name> (N)"
   bytearray.concat(
     collection_name,
     bytearray.concat(" (", bytearray.concat(count_bytes, ")")),
@@ -767,7 +769,7 @@ validator collection_nft(params: CollectionParams) {
   mint(redeemer: CollectionAction, policy_id: PolicyId, self: Transaction) {
     when redeemer is {
       MintCollection -> {
-        // Find Oracle NFT in reference inputs
+        // Step 1: Locate the oracle reference input that carries the NFT.
         expect Some(oracle_input) =
           list.find(
             self.reference_inputs,
@@ -783,15 +785,15 @@ validator collection_nft(params: CollectionParams) {
             },
           )
 
-        // Extract Oracle datum to get current count
+        // Step 2: Read the inline datum to grab the running collection count.
         expect InlineDatum(oracle_datum_data) = oracle_input.output.datum
         expect oracle_datum: OracleDatum = oracle_datum_data
         let current_count = oracle_datum.count
 
-        // Get tokens being minted for this policy
+        // Step 3: Inspect tokens being minted for this policy.
         let minted = assets.tokens(self.mint, policy_id)
 
-        // Must mint exactly 1 token
+        // Only one NFT is permitted per transaction to keep numbering sequential.
         expect [Pair(token_name, quantity)] = minted |> dict.to_pairs()
         expect quantity == 1
 
@@ -843,8 +845,11 @@ test test_collection_nft_mint_correct_name_succeeds() {
           oracle_value,
           mock_script_address(0, None),
         )
+      // Reference input provides the Oracle NFT for off-chain state.
       |> ref_tx_in_inline_datum(True, oracle_datum)
+      // Inline datum exposes the collection count to the minting policy.
       |> mint(True, 1, collection_policy, "TestNFT (3)")
+      // Mint the exact sequential name expected for count 3.
       |> complete()
 
   collection_nft.mint(params, MintCollection, collection_policy, tx)
@@ -878,8 +883,11 @@ test test_collection_nft_wrong_name_fails() fail {
           oracle_value,
           mock_script_address(0, None),
         )
+      // Reference input is present but we'll break the naming rule.
       |> ref_tx_in_inline_datum(True, oracle_datum)
+      // Attach the same datum so the validator can compare counts.
       |> mint(True, 1, collection_policy, "TestNFT (99)")
+      // Wrong suffix -> should fail validation.
       |> complete()
 
   collection_nft.mint(params, MintCollection, collection_policy, tx)
@@ -913,6 +921,7 @@ test test_collection_nft_burn_succeeds() {
   let tx =
     mocktail_tx()
       |> mint(True, -1, collection_policy, "TestNFT (5)")
+      // Burning any token simply requires a negative quantity.
       |> complete()
 
   collection_nft.mint(params, BurnCollection, collection_policy, tx)
