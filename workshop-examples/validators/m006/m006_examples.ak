@@ -7,13 +7,12 @@ use aiken/collection/dict
 use aiken/collection/list
 use aiken/primitive/bytearray
 use aiken/primitive/string
-use cardano/address.{Address, Script}
+use cardano/address.{Address}
 use cardano/assets.{
-  PolicyId, add, flatten, from_asset, from_lovelace, quantity_of,
+  PolicyId, add, flatten, from_lovelace, quantity_of,
 }
 use cardano/transaction.{
-  InlineDatum, Input, NoDatum, Output, OutputReference, Transaction,
-  TransactionId,
+  InlineDatum, Input, Output, OutputReference, Transaction,
 }
 use cocktail.{key_signed}
 use mocktail.{

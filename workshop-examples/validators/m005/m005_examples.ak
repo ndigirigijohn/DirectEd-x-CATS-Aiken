@@ -29,7 +29,7 @@ validator simple_counter {
   spend(
     datum: Option<CounterDatum>,
     redeemer: CounterAction,
-    own_ref: OutputReference,
+    _own_ref: OutputReference,
     self: Transaction,
   ) {
     // Get current state from input
