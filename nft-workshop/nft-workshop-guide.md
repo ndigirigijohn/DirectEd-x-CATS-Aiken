@@ -101,7 +101,7 @@ You need Preview testnet ADA (tADA) to pay transaction fees.
 
 ### Option A: Faucet (Self-Service)
 
-Visit: **https://faucet.preview.world.dev.cardano.org/**
+Visit: **https://docs.cardano.org/cardano-testnets/tools/faucet**
 
 1. Paste your address from `payment.addr`
 2. Click "Request funds"
@@ -542,7 +542,7 @@ Once the deadline slot passes, your policy is **automatically locked forever**. 
 - cardano-cli Guide: https://developers.cardano.org
 
 **Tools:**
-- Preview Faucet: https://faucet.preview.world.dev.cardano.org/
+- Preview Faucet: https://docs.cardano.org/cardano-testnets/tools/faucet 
 - IPFS Upload: https://nft.storage
 - Preview Explorer: https://preview.cardanoscan.io
 
