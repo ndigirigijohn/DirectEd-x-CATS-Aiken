@@ -1,25 +1,26 @@
 # Module M001 – First Validator
 
-**Goal**  
-Write, test, and compile your first spending and minting validators so you understand every moving part in a Cardano smart contract.
+This module turns the M000 environment into real output: you’ll write the simplest possible spending and minting validators, exercise them with tests, and produce the blueprint artifacts that wallets and dApps consume.
 
-**Key skills**
-- Read and author validator type signatures (datum, redeemer, context).
-- Implement “always succeed” patterns before layering real logic.
-- Use Vodka/Mocktail helpers to build minimal success and failure tests.
-- Compile validators to produce `plutus.json`, derive script addresses, and calculate policy IDs.
-- Interpret compiler/test output so you can debug quickly.
+## Core concepts
 
-**Practice focus**
-1. Scaffold a new validator in `workshop-examples/validators/m001` following the template in `hands-on.md`.
-2. Add custom datum/redeemer types, wire them into the validator signature, and create simple pattern matches.
-3. Write at least one passing and one failing test using the provided mocks.
-4. Run `aiken build`, inspect the resulting blueprint, and note the validator hash, script address, or policy ID.
+- **Validator anatomy** – Aiken validators are pure functions that return `True` or `False`. Spending validators receive `(datum, redeemer, input, tx)` while minting validators take `(redeemer, policy_id, tx)`.
+- **Spending vs minting** – Spending validators gate UTxOs at script addresses; minting validators control when tokens are created or burned via policy IDs.
+- **Purpose clauses** – `validator ... { spend(...) { ... } else(_) { fail } }` ensures the validator only serves its intended role.
+- **Blueprint outputs** – `aiken build` emits `plutus.json`, which lists validator hashes, compiled code, and gives inputs to address/policy generation.
+- **Testing patterns** – Success tests call `validator.spend(...)`; failure tests lean on the `fail` keyword, `else` branch, or negated expectations.
 
-**Move on when**
-- You can explain how spending vs minting validators differ and when to choose each.
-- Tests run quickly and you’re comfortable editing both the validator and its test suite.
-- You can locate the validator entry inside `plutus.json` and map it back to your code.
+## Learning checkpoints
 
-**Next steps**  
-Use `hands-on.md` for a detailed walk-through, then switch to `challenge.md` to extend the validator with custom rules.
+1. Re-create the “always succeed” spending and minting validators from `workshop-examples/validators/m001` to see the type signatures in action.
+2. Add simple traces plus success/failure tests that use `mock_utxo_ref`, `placeholder`, and `Void`.
+3. Run `aiken build`, inspect `plutus.json`, and generate a script address (`aiken blueprint address`) plus policy ID (`aiken blueprint policy`).
+4. Explore how title paths inside `plutus.json` map to validator modules so CLI commands can find them.
+
+## When to move on
+
+- You can describe every parameter in both validator types and explain why underscores silence unused-variable warnings.
+- Your tests cover at least one success and one failure case and you’re comfortable reading the output of `aiken check`.
+- You know how to fetch the address or policy for any compiled validator in the blueprint file.
+
+Next, execute the step-by-step practice in `hands-on.md`, then complete the `challenge.md` brief to cement validator creation, testing, and artifact generation.

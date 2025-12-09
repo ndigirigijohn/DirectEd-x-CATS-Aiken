@@ -1,25 +1,26 @@
 # Module M002 – Mock Transactions
 
-**Goal**  
-Model real Cardano transactions in tests so every validator you build can be exercised with believable inputs, outputs, and minting operations before touching the blockchain.
+Validators only see the transaction they live inside, so good tests must recreate that context. This module teaches you how to model inputs, outputs, datums, redeemers, minting values, and signers using Mocktail/Vodka helpers so validators can be exercised realistically.
 
-**Key skills**
-- Break down the structure of a transaction (inputs, outputs, minting, signers, validity range).
-- Use Mocktail utilities to create spending, locking, and minting transactions.
-- Add inline datums to outputs and craft redeemers that unlock them.
-- Simulate multi-asset values and token bundles inside test scenarios.
-- Document transaction flows so future readers know what each mock is proving.
+## Core concepts
 
-**Practice focus**
-1. Start from the templates in `hands-on.md` to assemble a base transaction and progressively add inputs/outputs.
-2. Write a locking transaction that pushes funds to a validator address with an inline datum.
-3. Create the matching unlocking transaction that spends the output using a redeemer.
-4. Extend the same pattern to mint multiple NFTs and verify the resulting token quantities.
+- **Transaction anatomy** – Understand `Transaction` fields (inputs, outputs, fee, mint, validity range, extra signers, redeemers, datums) and the balance equation `inputs = outputs + fee`.
+- **Placeholders & spread operator** – Start from `placeholder` and override only the fields you care about via `Transaction { ..placeholder, inputs: [...], outputs: [...] }`.
+- **Mocktail builders** – Use `mocktail_tx |> tx_in |> tx_out |> set_fee |> complete` to build fluent scenarios without manual struct creation.
+- **Mint field** – Represent token bundles with `Value` (`PolicyId` → `AssetName` → quantity) using helpers such as `from_asset`, `add`, and `zero`.
+- **Locking & unlocking** – Create script outputs using `PaymentCredential.Script`, attach inline datums, and include redeemers/datums dictionaries when spending those outputs later.
 
-**Move on when**
-- You can explain which parts of a transaction a validator can inspect and how to mock them.
-- Your tests cover both the “happy path” and at least one failure path using the same validator.
-- You feel comfortable reusing helper functions to avoid copy/pasting transaction scaffolding.
+## Learning checkpoints
 
-**Next steps**  
-Follow the practical walkthrough in `hands-on.md`, then tackle the scenario described in `challenge.md` to cement these patterns.
+1. Rebuild the basic spending transaction from `validators/m002/l1_mock_spending.ak`, ensuring inputs/outputs balance.
+2. Construct minting transactions that mint multiple assets and understand how values accumulate per policy.
+3. Create locking transactions that send funds to script addresses with inline datums.
+4. Author unlocking transactions that reference the correct datum/redeemer pair, include the script UTxO as an input, and provide the unlocking redeemer within `tx.redeemers`.
+
+## When to move on
+
+- You can explain which transaction fields your validators rely on and show how to populate them in tests.
+- Building mock transactions feels faster with the builder APIs than with manual structs.
+- You’ve written tests that simulate locking funds, unlocking them, and minting tokens, all while keeping the balance equation intact.
+
+Use `hands-on.md` to practice each flow in sequence, then complete the scenario inside `challenge.md` to prove you can construct full transaction lifecycles for future modules.

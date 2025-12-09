@@ -1,6 +1,37 @@
 # Course overview
 
-Use this document as the narrative guide for the DirectEd x CATS Hackathon Aiken Workshops. Each section summarises the intent of a module, highlights the main technical skills, and points you to the repositories you should explore once the lesson is complete. While the simplified markdown lessons are being prepared under `modules/`, you can use the source material in `module-content-txts/` as the detailed reading companion.
+Use this document as the narrative guide for the DirectEd x CATS Hackathon Aiken Workshops. Each section summarises the intent of a module, highlights the main technical skills, and points you to the repositories you should explore once the lesson is complete.
+
+## Program snapshot
+
+- **Duration**: 9 Nov – 16 Dec 2025, twice-weekly 2‑hour sessions.
+- **Audience**: Entry-level Cardano developers located across Abuja, Kigali, and Addis Ababa (self-paced learners can follow the same flow from GitHub).
+- **Format**: First hour for concepts, second hour for hands-on work, demos, and Q&A.
+- **Learning approach**: Review material before each session, complete the guided challenges afterwards, lean on provided examples, and bring questions to office hours or Discord.
+
+## Support & success habits
+
+- Weekly office hours (Discord) focus on code review, debugging, and architecture Q&A.
+- Peer channels stay open for asynchronous troubleshooting and progress check-ins.
+- Best practices: start early, code a little every day, document decisions, collaborate often, and read examples thoroughly before attempting new challenges.
+
+## Recommended tooling
+
+- Development: [Aiken](https://aiken-lang.org/), [VS Code](https://code.visualstudio.com/), [Git](https://git-scm.com/).
+- Testing: [Vodka / Mocktail](https://github.com/sidan-lab/vodka), [Aiken stdlib](https://aiken-lang.github.io/stdlib/).
+- Transaction building: [Mesh SDK](https://meshjs.dev/), [Lucid Evolution](https://anastasia-labs.github.io/lucid-evolution/).
+- Documentation: [Cardano Developers](https://developers.cardano.org/), [Cardano CIPs](https://cips.cardano.org/).
+
+## Completion outcomes
+
+Finishing all eight modules and challenges means you will have:
+
+- Set up a full Aiken smart-contract environment.
+- Written, tested, and compiled multiple spending and minting validators.
+- Built state machines plus NFT minting systems.
+- Designed multi-validator DApp architectures and deployment plans.
+- Documented schemas and integration details straight from the blueprint.
+- Prepared a portfolio of Cardano projects ready for further iteration.
 
 ## How to read this file
 

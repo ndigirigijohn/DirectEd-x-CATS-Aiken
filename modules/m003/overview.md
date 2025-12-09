@@ -1,25 +1,26 @@
 # Module M003 – Validation Logic
 
-**Goal**  
-Move beyond “always succeed” validators by adding real business logic that inspects redeemers, datums, signatures, reference inputs, and time windows.
+Validators become useful only when they enforce rules. This module teaches you how to implement real decision making: redeemer pattern matching, datum inspection, signature/time checks, reference inputs, and parameterisation so one validator can power multiple deployments.
 
-**Key skills**
-- Pattern-match on redeemer constructors and compare datum fields.
-- Parameterise validators so you can reuse logic with different constants.
-- Look up required signatories (`tx.required_signers`) and enforce access control.
-- Read validity intervals and POSIX times to restrict when transactions may execute.
-- Combine multiple checks into clear helper functions that fail with meaningful messages.
+## Core concepts
 
-**Practice focus**
-1. Start with a working validator from Module M001 and identify the rules it should enforce.
-2. Implement helper functions for datum/redeemer validation, signature checks, and optional reference inputs.
-3. Add guard clauses around validity ranges or slot-based windows.
-4. Expand the associated tests so each rule is proven independently before combining them.
+- **Redeemer-driven behaviour** – Define algebraic data types (e.g., `Unlock | Cancel | Extend`) and use `when ... is { ... }` to allow or reject each action.
+- **Datum-backed state** – Store configuration such as owners, deadlines, or amounts in datums; destructure them safely with `expect Some(d)` and `let MyDatum { ... } = d`.
+- **Parameterized validators** – Accept compile-time parameters (e.g., owner/admin keys) so the same source file can generate multiple addresses.
+- **Reference inputs and signatures** – Use helper utilities to read reference inputs (for oracle data) and enforce that particular verification key hashes appear in `tx.extra_signatories`.
+- **Time and IO checks** – Leverage `validity_range`, `vodka/time` helpers, and list-processing functions to make sure transactions happen within allowed windows and include the right inputs/outputs.
 
-**Move on when**
-- You can explain which pieces of `tx` are available to the validator and how to query them safely.
-- Validators remain readable even after adding multiple checks (helpers, descriptive errors).
-- Tests fail for the right reason whenever you tweak datum, redeemer, signatures, or time.
+## Learning checkpoints
 
-**Next steps**  
-Use `hands-on.md` to layer these patterns step by step, then complete the scenario in `challenge.md` to create a fully validated contract.
+1. Extend a Module M001 validator with redeemer constructors and tests that cover success + failure cases per action.
+2. Introduce a custom datum type, extract its fields, and guard on signer presence or thresholds defined inside the datum.
+3. Parameterise the validator (e.g., `validator access_control(params: ...)`) and instantiate it with different owners in tests.
+4. Add reference-input, signature, and time constraints to the same validator, documenting why each rule exists.
+
+## When to move on
+
+- You can articulate which `Transaction` fields each rule depends on and access them without panicking or pattern-match errors.
+- Tests target each rule individually (signature missing, wrong redeemer, time too early, etc.) and your failure messages point to the culprit.
+- Validator modules stay readable because you extracted helper functions or `let` bindings for non-trivial checks.
+
+Work through `hands-on.md` to layer these skills one at a time, then tackle `challenge.md` to combine them into a compact, production-style validator. The patterns you master here underpin Modules M004–M007.
