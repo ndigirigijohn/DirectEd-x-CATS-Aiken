@@ -8,7 +8,7 @@ This repository hosts the self-paced version of the DirectEd x CATS Hackathon Ai
 - `module-content-txts/` – original workshop scripts. Use these while the migration into `modules/` is in progress.
 - `workshop-examples/` – pure Aiken validators organised by module. Documentation lives inside the source files as code comments.
 - `nft-workshop/` – CLI-driven NFT walkthrough that supports the minting-focused lessons.
-- `vesting-dapp-example/` – full-stack vesting reference made of a Next.js UI and matching Aiken smart contracts.
+- `vesting-example/` – full-stack vesting reference made of a Next.js UI and matching Aiken smart contracts.
 - `COURSE.md` – narrative syllabus that summarises every module and points to the most relevant repositories.
 - `deploying-cardano-sc/` and other docs – supplementary guides that will eventually move under `docs/`.
 
@@ -17,7 +17,7 @@ This repository hosts the self-paced version of the DirectEd x CATS Hackathon Ai
 1. Read `COURSE.md` to understand the sequencing, tooling expectations, and which example repositories accompany each module.
 2. Open the relevant module in `modules/` (or temporarily `module-content-txts/`) and follow the `overview.md` → `hands-on.md` → `challenge.md` flow.
 3. Jump into `workshop-examples/` to compile and test the validators discussed in each lesson (`aiken check` works per module folder).
-4. Use `nft-workshop/` and `vesting-dapp-example/` for larger build-along experiences once you reach the minting and DApp architecture modules.
+4. Use `nft-workshop/` and `vesting-example/` for larger build-along experiences once you reach the minting and DApp architecture modules.
 5. Keep your own notes or solutions inside new branches; the repository is organised so each module can be version-controlled independently.
 
 ## Module roadmap
@@ -37,7 +37,7 @@ This repository hosts the self-paced version of the DirectEd x CATS Hackathon Ai
 
 - `workshop-examples/` – fastest place to experiment with validators per module. Each file contains inline explanations instead of separate docs.
 - `nft-workshop/` – extends Modules M002 and M006 by walking through CLI minting flows and on-chain/off-chain coordination.
-- `vesting-dapp-example/` – pairs a Next.js app with its Aiken contracts to illustrate how Modules M005 and M007 translate into production code.
+- `vesting-example/` – pairs a Next.js app with its Aiken contracts to illustrate how Modules M005 and M007 translate into production code.
 
 ## Next steps for contributors
 

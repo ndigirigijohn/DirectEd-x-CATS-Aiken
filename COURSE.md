@@ -75,7 +75,7 @@ The final module explains how compiled validators surface in `plutus.json`, how 
 
 - `workshop-examples/` – Contains the validator code that mirrors each module. Because documentation stays inside the `.ak` files, read the comments as you study.
 - `nft-workshop/` – Supplements Modules M002 and M006 with a Cardano CLI-based NFT minting workflow plus supporting notes.
-- `vesting-dapp-example/` – Couples a Next.js interface with its Aiken validators to demonstrate the state-machine and blueprint concepts from Modules M005 and M007.
+- `vesting-example/` – Couples a Next.js interface with its Aiken validators to demonstrate the state-machine and blueprint concepts from Modules M005 and M007.
 
 Use this outline together with the upcoming `modules/` directory to track progress, plan challenges, and connect each lesson with hands-on repositories.
 

@@ -39,4 +39,4 @@ aiken check -m math
 ## Repo references
 - `modules/m000/` – the content you’re reading now.
 - `workshop-examples/validators/m000/` – canonical sample tests for this module.
-- `nft-workshop/` & `vesting-dapp-example/` – ignore for now; they’re referenced later but useful if you want to confirm your environment can run larger projects.
+- `nft-workshop/` & `vesting-example/` – ignore for now; they’re referenced later but useful if you want to confirm your environment can run larger projects.

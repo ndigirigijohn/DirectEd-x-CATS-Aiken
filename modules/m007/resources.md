@@ -42,5 +42,5 @@ const scriptCbor = applyParamsToScript(
 
 ## Repo pointers
 - `modules/m007/` – blueprint + architecture guidance plus extra note files.
-- `vesting-dapp-example/` – practical reference for integrating Aiken contracts with a Next.js frontend.
+- `vesting-example/` – practical reference for integrating Aiken contracts with a Next.js frontend.
 - `nft-workshop/` – CLI-centric walkthrough that can be paired with the blueprint to test off-chain flows.

@@ -6,7 +6,9 @@
 - Oracle/reference pattern overview: https://developers.cardano.org/docs/smart-contracts/oracle-pattern
 - CIP-25 (NFT metadata) for naming conventions: https://cips.cardano.org/cips/cip25
 - `modules/m006/notes/minting_policies_real_world.md` – case studies showing how these policies are applied in production.
-- `modules/m006/notes/nft_workshop_guide.md` – CLI walkthrough formerly stored beside the validators.
+- `modules/m006/notes/nft_workshop_guide.md` – foundational theory for the NFT workshop.
+- `modules/m006/notes/nft_workshop_cli_walkthrough.md` – step-by-step CLI flow that used to live inside the project folder.
+- `modules/m006/notes/cardano_cli_installation_guide.md` – environment checklist for the CLI tooling.
 - `modules/m006/notes/understanding_nfts_in_cardano.md` – conceptual primer on Cardano-native assets and NFT patterns.
 
 ## Commands & helpers

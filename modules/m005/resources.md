@@ -33,4 +33,4 @@ list.is_empty(continues)
 ## Repo pointers
 - `modules/m005/` – lesson, exercises, challenge, plus extra notes.
 - `workshop-examples/validators/m005/` – examples of counters, voting machines, and vesting flows.
-- `vesting-dapp-example/` – real project that uses similar patterns for Module M007.
+- `vesting-example/` – real project that uses similar patterns for Module M007.
