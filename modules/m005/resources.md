@@ -5,6 +5,7 @@
 - Vodka single output helpers: https://github.com/sidan-lab/vodka
 - State machine background (Plutus Pioneer Program): https://www.youtube.com/watch?v=6gQFzbCLqL4
 - Cardano design patterns (state machines): https://developers.cardano.org/docs/smart-contracts/state-machines
+- `modules/m005/notes/state_machines_explanation.md` – expanded explanation that previously lived next to the examples.
 
 ## Handy snippets
 ```text
@@ -30,6 +31,6 @@ list.is_empty(continues)
 - **Lifecycle tests hard to manage** – build helper builders that accept the previous state and emit the next transaction to keep fixtures small.
 
 ## Repo pointers
-- `modules/m005/` – lesson, exercises, challenge.
+- `modules/m005/` – lesson, exercises, challenge, plus extra notes.
 - `workshop-examples/validators/m005/` – examples of counters, voting machines, and vesting flows.
 - `vesting-dapp-example/` – real project that uses similar patterns for Module M007.

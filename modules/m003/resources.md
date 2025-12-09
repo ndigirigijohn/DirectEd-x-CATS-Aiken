@@ -6,6 +6,7 @@
 - Transaction module: https://aiken-lang.github.io/stdlib/cardano/transaction.html
 - Vodka helpers (time, address, reference inputs): https://github.com/sidan-lab/vodka
 - CIP-30 + signature flow refresher: https://cips.cardano.org/cips/cip30/
+- `modules/m003/notes/real_world_validator_examples.md` – narrative walkthrough of the real-world samples that used to live beside the .ak files.
 
 ## Useful snippets
 ```text
@@ -35,6 +36,6 @@ let time_ok = is_after(tx.validity_range, unlock_after)
 - **Unreadable validator** – break logic into helper functions; Aiken encourages pure functions for each rule so error messages stay targeted.
 
 ## Repo pointers
-- `modules/m003/` – lesson, exercises, challenge.
+- `modules/m003/` – lesson, exercises, challenge, plus note files.
 - `workshop-examples/validators/m003/` – reference implementations for redeemer, datum, parameterised, reference-input, and time-lock validators.
 - `workshop-examples/lib/` – supporting helper modules (time utilities, mock builders) used throughout this module.

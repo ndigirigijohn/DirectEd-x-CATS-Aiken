@@ -5,6 +5,9 @@
 - Assets/mint field reference: https://aiken-lang.github.io/stdlib/cardano/assets.html
 - Oracle/reference pattern overview: https://developers.cardano.org/docs/smart-contracts/oracle-pattern
 - CIP-25 (NFT metadata) for naming conventions: https://cips.cardano.org/cips/cip25
+- `modules/m006/notes/minting_policies_real_world.md` – case studies showing how these policies are applied in production.
+- `modules/m006/notes/nft_workshop_guide.md` – CLI walkthrough formerly stored beside the validators.
+- `modules/m006/notes/understanding_nfts_in_cardano.md` – conceptual primer on Cardano-native assets and NFT patterns.
 
 ## Commands & helpers
 ```bash
@@ -38,6 +41,6 @@ fn token_name(collection: String, counter: Int) -> AssetName {
 - **One-shot policy reused** – verify that the parameterised `OutputReference` actually exists on-chain; mock references must match the transaction inputs exactly.
 
 ## Repo pointers
-- `modules/m006/` – lesson + exercise flow.
+- `modules/m006/` – lesson, exercises, challenges, and detailed note files.
 - `workshop-examples/validators/m006/` – oracle NFT, oracle validator, collection policy samples.
 - `nft-workshop/` – CLI walkthrough referenced later for real-world minting.

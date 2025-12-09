@@ -5,6 +5,7 @@
 - Mesh SDK datum/redeemer encoding: https://meshjs.dev/apis/transaction
 - Lucid Evolution parameter application: https://anastasia-labs.github.io/lucid-evolution/docs/advanced/parameterized-scripts
 - Cardano serialization lib (CSL) docs: https://lucid.spacebudz.io/docs/advanced/csl
+- `modules/m007/notes/advanced_dapp_architecture.md` – deep dive on the multi-validator architecture that used to live next to the examples.
 
 ## Commands
 ```bash
@@ -40,6 +41,6 @@ const scriptCbor = applyParamsToScript(
 - **Initialization checklist**: `Select UTxO`, `Compile policy`, `Mint oracle token`, `Lock oracle`, `Deploy collection policy`, `Fund script addresses`.
 
 ## Repo pointers
-- `modules/m007/` – blueprint + architecture guidance.
+- `modules/m007/` – blueprint + architecture guidance plus extra note files.
 - `vesting-dapp-example/` – practical reference for integrating Aiken contracts with a Next.js frontend.
 - `nft-workshop/` – CLI-centric walkthrough that can be paired with the blueprint to test off-chain flows.

@@ -5,6 +5,8 @@
 - Assets & value helpers: https://aiken-lang.github.io/stdlib/cardano/assets.html
 - Vodka utilities (`inputs_at`, `single_script_input`): https://github.com/sidan-lab/vodka
 - Double-satisfaction background: https://developers.cardano.org/docs/smart-contracts/security-considerations/#double-satisfaction
+- `modules/m004/notes/workshop_summary.md` – narrative recap plus troubleshooting steps that used to sit next to the validators.
+- `modules/m004/assets/input_validation.png` – diagram you can embed in docs or slides.
 
 ## Snippets
 ```text
@@ -32,5 +34,5 @@ quantity_of(
 - **Balance equation errors** – re-use Module M002 helpers to guarantee `inputs = outputs + fee`; failing that, simplfy tests to a single wallet input plus the script input.
 
 ## Repo references
-- `modules/m004/` – current lesson + exercises.
+- `modules/m004/` – lesson, exercises, notes, and supporting assets.
 - `workshop-examples/validators/m004/` – reference implementations for address filtering, single-script-input utilities, value validation, and datum checks.
