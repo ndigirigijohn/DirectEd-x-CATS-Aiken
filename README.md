@@ -1,11 +1,10 @@
 # DirectEd x CATS Hackathon Aiken Development Workshops
 
-This repository hosts the self-paced version of the DirectEd x CATS Hackathon Aiken curriculum. It collects the original workshop notes, runnable validator examples, and end-to-end reference projects so learners can progress through the material entirely from GitHub.
+This repository hosts the self-paced version of the DirectEd x CATS Hackathon Aiken curriculum. It collects the workshop notes, runnable validator examples, and end-to-end reference projects so learners can progress through the material entirely from GitHub. You can also browse the original Google Drive handouts here: [Complete course content](https://drive.google.com/drive/folders/1yJfc9TsvjdOju5NAb4l2yX1mFbOiT_8k?usp=sharing)[^1].
 
 ## Repository layout
 
-- `modules/` – destination for the simplified markdown lessons (to be populated in upcoming steps).
-- `module-content-txts/` – original workshop scripts. Use these while the migration into `modules/` is in progress.
+- `modules/` – simplified markdown lessons, hands-on flows, challenges, and resource links for each module.
 - `workshop-examples/` – pure Aiken validators organised by module. Documentation lives inside the source files as code comments.
 - `nft-workshop/` – CLI-driven NFT walkthrough that supports the minting-focused lessons.
 - `vesting-example/` – full-stack vesting reference made of a Next.js UI and matching Aiken smart contracts.
@@ -15,7 +14,7 @@ This repository hosts the self-paced version of the DirectEd x CATS Hackathon Ai
 ## How to navigate the course
 
 1. Read `COURSE.md` to understand the sequencing, tooling expectations, and which example repositories accompany each module.
-2. Open the relevant module in `modules/` (or temporarily `module-content-txts/`) and follow the `overview.md` → `hands-on.md` → `challenge.md` flow.
+2. Open the relevant module in `modules/` and follow the `overview.md` → `hands-on.md` → `challenge.md` flow.
 3. Jump into `workshop-examples/` to compile and test the validators discussed in each lesson (`aiken check` works per module folder).
 4. Use `nft-workshop/` and `vesting-example/` for larger build-along experiences once you reach the minting and DApp architecture modules.
 5. Keep your own notes or solutions inside new branches; the repository is organised so each module can be version-controlled independently.
@@ -39,11 +38,6 @@ This repository hosts the self-paced version of the DirectEd x CATS Hackathon Ai
 - `nft-workshop/` – extends Modules M002 and M006 by walking through CLI minting flows and on-chain/off-chain coordination.
 - `vesting-example/` – pairs a Next.js app with its Aiken contracts to illustrate how Modules M005 and M007 translate into production code.
 
-## Next steps for contributors
-
-- Convert every `.txt` under `module-content-txts/` into simplified markdown under `modules/`.
-- Keep documentation for examples inside code comments so validators stay the single source of truth.
-- Use `COURSE.md` whenever you need to tweak module descriptions or cross-links—README intentionally stays concise.
-
 Happy building! The issues tab will be used to track migration progress and collect feedback from self-paced learners.
 
+[^1]: Google Drive folder listing the original workshop docs shared with participants.

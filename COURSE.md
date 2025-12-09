@@ -1,6 +1,6 @@
 # Course overview
 
-Use this document as the narrative guide for the DirectEd x CATS Hackathon Aiken Workshops. Each section summarises the intent of a module, highlights the main technical skills, and points you to the repositories you should explore once the lesson is complete.
+Use this document as the narrative guide for the DirectEd x CATS Hackathon Aiken Workshops. Each section summarises the intent of a module, highlights the main technical skills, and points you to the repositories you should explore once the lesson is complete. Detailed lessons live under `modules/m00x-*` (each folder contains `overview.md`, `hands-on.md`, `challenge.md`, and `resources.md`).
 
 ## Program snapshot
 
